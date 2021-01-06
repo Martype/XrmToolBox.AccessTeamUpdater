@@ -35,20 +35,20 @@
             this.toolStripButton_UpdateAccessTeams = new System.Windows.Forms.ToolStripButton();
             this.label_AccessTeamTemplates = new System.Windows.Forms.Label();
             this.dataGridView_AccessTeamTemplates = new System.Windows.Forms.DataGridView();
+            this.TeamTemplateId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TeamTemplateName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DefaultAccessRightsMask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccessRights = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView_AccessTeams = new System.Windows.Forms.DataGridView();
+            this.TeamId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TeamName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RegardingObjectId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RegardingObjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label_AccessTeams = new System.Windows.Forms.Label();
             this.label_AccessTeamTemplateName = new System.Windows.Forms.Label();
             this.textBox_AccessTeamTemplateId = new System.Windows.Forms.TextBox();
             this.label_AccessRights = new System.Windows.Forms.Label();
             this.textBox_AccessMask = new System.Windows.Forms.TextBox();
-            this.TeamId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TeamName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegardingObjectId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegardingObjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TeamTemplateId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TeamTemplateName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DefaultAccessRightsMask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AccessRights = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_AccessTeamTemplates)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_AccessTeams)).BeginInit();
@@ -129,6 +129,36 @@
             this.dataGridView_AccessTeamTemplates.Size = new System.Drawing.Size(300, 402);
             this.dataGridView_AccessTeamTemplates.TabIndex = 8;
             // 
+            // TeamTemplateId
+            // 
+            this.TeamTemplateId.HeaderText = "Id";
+            this.TeamTemplateId.Name = "TeamTemplateId";
+            this.TeamTemplateId.ReadOnly = true;
+            this.TeamTemplateId.Visible = false;
+            // 
+            // TeamTemplateName
+            // 
+            this.TeamTemplateName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.TeamTemplateName.HeaderText = "Name";
+            this.TeamTemplateName.Name = "TeamTemplateName";
+            this.TeamTemplateName.ReadOnly = true;
+            this.TeamTemplateName.Width = 60;
+            // 
+            // DefaultAccessRightsMask
+            // 
+            this.DefaultAccessRightsMask.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.DefaultAccessRightsMask.HeaderText = "Access Mask";
+            this.DefaultAccessRightsMask.Name = "DefaultAccessRightsMask";
+            this.DefaultAccessRightsMask.ReadOnly = true;
+            this.DefaultAccessRightsMask.Visible = false;
+            // 
+            // AccessRights
+            // 
+            this.AccessRights.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.AccessRights.HeaderText = "Access Rights";
+            this.AccessRights.Name = "AccessRights";
+            this.AccessRights.ReadOnly = true;
+            // 
             // dataGridView_AccessTeams
             // 
             this.dataGridView_AccessTeams.AllowUserToAddRows = false;
@@ -149,7 +179,40 @@
             this.dataGridView_AccessTeams.RowHeadersVisible = false;
             this.dataGridView_AccessTeams.Size = new System.Drawing.Size(523, 331);
             this.dataGridView_AccessTeams.TabIndex = 9;
-            this.dataGridView_AccessTeams.SelectionChanged += new System.EventHandler(this.dataGridView_AccessTeams_SelectionChanged);
+            this.dataGridView_AccessTeams.SelectionChanged += new System.EventHandler(this.UndoSelection);
+            // 
+            // TeamId
+            // 
+            this.TeamId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.TeamId.HeaderText = "Id";
+            this.TeamId.Name = "TeamId";
+            this.TeamId.ReadOnly = true;
+            this.TeamId.Width = 41;
+            // 
+            // TeamName
+            // 
+            this.TeamName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.TeamName.HeaderText = "Name";
+            this.TeamName.Name = "TeamName";
+            this.TeamName.ReadOnly = true;
+            this.TeamName.Width = 60;
+            // 
+            // RegardingObjectId
+            // 
+            this.RegardingObjectId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.RegardingObjectId.HeaderText = "Regarding Object Id";
+            this.RegardingObjectId.MinimumWidth = 200;
+            this.RegardingObjectId.Name = "RegardingObjectId";
+            this.RegardingObjectId.ReadOnly = true;
+            this.RegardingObjectId.Width = 200;
+            // 
+            // RegardingObjectName
+            // 
+            this.RegardingObjectName.HeaderText = "Regarding Object Name";
+            this.RegardingObjectName.Name = "RegardingObjectName";
+            this.RegardingObjectName.ReadOnly = true;
+            this.RegardingObjectName.Visible = false;
+            this.RegardingObjectName.Width = 200;
             // 
             // label_AccessTeams
             // 
@@ -198,70 +261,6 @@
             this.textBox_AccessMask.Size = new System.Drawing.Size(395, 20);
             this.textBox_AccessMask.TabIndex = 12;
             // 
-            // TeamId
-            // 
-            this.TeamId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.TeamId.HeaderText = "Id";
-            this.TeamId.Name = "TeamId";
-            this.TeamId.ReadOnly = true;
-            this.TeamId.Width = 41;
-            // 
-            // TeamName
-            // 
-            this.TeamName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.TeamName.HeaderText = "Name";
-            this.TeamName.Name = "TeamName";
-            this.TeamName.ReadOnly = true;
-            this.TeamName.Width = 60;
-            // 
-            // RegardingObjectId
-            // 
-            this.RegardingObjectId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.RegardingObjectId.HeaderText = "Regarding Object Id";
-            this.RegardingObjectId.MinimumWidth = 200;
-            this.RegardingObjectId.Name = "RegardingObjectId";
-            this.RegardingObjectId.ReadOnly = true;
-            this.RegardingObjectId.Width = 200;
-            // 
-            // RegardingObjectName
-            // 
-            this.RegardingObjectName.HeaderText = "Regarding Object Name";
-            this.RegardingObjectName.Name = "RegardingObjectName";
-            this.RegardingObjectName.ReadOnly = true;
-            this.RegardingObjectName.Visible = false;
-            this.RegardingObjectName.Width = 200;
-            // 
-            // TeamTemplateId
-            // 
-            this.TeamTemplateId.HeaderText = "Id";
-            this.TeamTemplateId.Name = "TeamTemplateId";
-            this.TeamTemplateId.ReadOnly = true;
-            this.TeamTemplateId.Visible = false;
-            // 
-            // TeamTemplateName
-            // 
-            this.TeamTemplateName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.TeamTemplateName.HeaderText = "Name";
-            this.TeamTemplateName.Name = "TeamTemplateName";
-            this.TeamTemplateName.ReadOnly = true;
-            this.TeamTemplateName.Width = 60;
-            // 
-            // DefaultAccessRightsMask
-            // 
-            this.DefaultAccessRightsMask.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.DefaultAccessRightsMask.HeaderText = "Access Mask";
-            this.DefaultAccessRightsMask.Name = "DefaultAccessRightsMask";
-            this.DefaultAccessRightsMask.ReadOnly = true;
-            this.DefaultAccessRightsMask.Visible = false;
-            this.DefaultAccessRightsMask.Width = 96;
-            // 
-            // AccessRights
-            // 
-            this.AccessRights.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.AccessRights.HeaderText = "Access Rights";
-            this.AccessRights.Name = "AccessRights";
-            this.AccessRights.ReadOnly = true;
-            // 
             // PluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -278,7 +277,7 @@
             this.Controls.Add(this.toolStripMenu);
             this.Name = "PluginControl";
             this.Size = new System.Drawing.Size(839, 450);
-            this.Load += new System.EventHandler(this.MyPluginControl_Load);
+            this.Load += new System.EventHandler(this.LoadPlugin);
             this.toolStripMenu.ResumeLayout(false);
             this.toolStripMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_AccessTeamTemplates)).EndInit();

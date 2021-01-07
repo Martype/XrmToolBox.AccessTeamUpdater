@@ -12,16 +12,19 @@ using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Xrm.Sdk;
 using McTools.Xrm.Connection;
 using Microsoft.Crm.Sdk.Messages;
+using Martype.XrmToolBox.AccessTeamUpdater.Factory;
+using Martype.XrmToolBox.AccessTeamUpdater.Model;
+using Martype.XrmToolBox.AccessTeamUpdater.Query;
+using Martype.XrmToolBox.AccessTeamUpdater.Workers;
+using System.Diagnostics;
 
 namespace Martype.XrmToolBox.AccessTeamUpdater
 {
     public partial class PluginControl : PluginControlBase
     {
         private Settings mySettings;
-        private List<Entity> AcceessTeams;
-        private Guid? SelectedTeamTemplateId;
-        private string SelectedTeamTemplateName;
-        private AccessRights? AccessMask;
+        public List<AccessTeam> AcceessTeams;
+        public AccessTeamTemplate SelectedTemplate;
 
         public PluginControl()
         {
@@ -30,6 +33,8 @@ namespace Martype.XrmToolBox.AccessTeamUpdater
 
         private void LoadPlugin(object sender, EventArgs e)
         {
+            AddDivergentOnlyToolTip();
+            
             // Loads or creates the settings for the plugin
             if (!SettingsManager.Instance.TryLoad(GetType(), out mySettings))
             {
@@ -45,195 +50,21 @@ namespace Martype.XrmToolBox.AccessTeamUpdater
 
         private void GetAccessTeamTemplates(object sender, EventArgs e)
         {
-            try
-            {
-                dataGridView_AccessTeamTemplates.Rows.Clear();
-
-                WorkAsync(new WorkAsyncInfo
-                {
-                    Message = "Getting Access Team Templates",
-                    Work = (worker, args) =>
-                    {
-                        var query = new QueryExpression("teamtemplate");
-                        query.ColumnSet = new ColumnSet(new string[] {
-                        "teamtemplateid",
-                        "teamtemplatename",
-                        "defaultaccessrightsmask"
-                        });
-
-                        args.Result = Service.RetrieveMultiple(query);
-                    },
-                    PostWorkCallBack = (args) =>
-                    {
-                        if (args.Error != null)
-                        {
-                            MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-                        var result = args.Result as EntityCollection;
-
-                        if (result != null)
-                        {
-                            result.Entities.ToList().ForEach(template =>
-                            {
-                                dataGridView_AccessTeamTemplates.Rows.Add(new string[] {
-                                template.GetAttributeValue<Guid>("teamtemplateid").ToString(),
-                                template.GetAttributeValue<string>("teamtemplatename"),
-                                template.GetAttributeValue<int>("defaultaccessrightsmask").ToString(),
-                                ((AccessRights)template.GetAttributeValue<int>("defaultaccessrightsmask")).ToString()
-                                });
-                            });
-                        }
-                    }
-                });
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            var worker = new GetAccessTeamTemplatesWorker(this);
+            worker.DoWork();
         }
 
         private void GetAccessTeams(object sender, EventArgs e)
         {
-            try
-            {
-                AcceessTeams = null;
-                SelectedTeamTemplateId = null;
-                SelectedTeamTemplateName = null;
-                AccessMask = null;
-
-                dataGridView_AccessTeams.Rows.Clear();
-                textBox_AccessTeamTemplateId.Text = null;
-                textBox_AccessMask.Text = null;
-
-                if (dataGridView_AccessTeamTemplates.SelectedRows.Count < 1)
-                {
-                    MessageBox.Show("Please select an access team template.", "No access team template selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
-                var teamTemplateId = new Guid((string)dataGridView_AccessTeamTemplates.SelectedRows[0].Cells[0].Value);
-                var teamTemplateName = (string)dataGridView_AccessTeamTemplates.SelectedRows[0].Cells[1].Value;
-                var accessMask = (AccessRights)(int.Parse((string)dataGridView_AccessTeamTemplates.SelectedRows[0].Cells[2].Value));
-
-                WorkAsync(new WorkAsyncInfo
-                {
-                    Message = "Getting Access Team Templates",
-                    Work = (worker, args) =>
-                    {
-                        var query = new QueryExpression("team");
-                        query.ColumnSet = new ColumnSet(new string[] {
-                        "teamid",
-                        "name",
-                        "regardingobjectid",
-                        "teamtemplateid"
-                        });
-
-                        var filter = new FilterExpression();
-                        filter.AddCondition("teamtemplateid", ConditionOperator.Equal, teamTemplateId);
-
-                        query.Criteria.AddFilter(filter);
-
-                        args.Result = Service.RetrieveMultiple(query);
-                    },
-                    PostWorkCallBack = (args) =>
-                    {
-                        if (args.Error != null)
-                        {
-                            MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-                        var restult = args.Result as EntityCollection;
-
-                        if (restult != null)
-                        {
-                            AcceessTeams = restult.Entities.ToList();
-                            SelectedTeamTemplateId = teamTemplateId;
-                            SelectedTeamTemplateName = teamTemplateName;
-                            AccessMask = accessMask;
-
-                            textBox_AccessTeamTemplateId.Text = SelectedTeamTemplateName;
-                            textBox_AccessMask.Text = AccessMask.ToString();
-
-                            AcceessTeams.ForEach(team =>
-                            {
-                                dataGridView_AccessTeams.Rows.Add(new string[] {
-                                team.GetAttributeValue<Guid>("teamid").ToString(),
-                                team.GetAttributeValue<string>("name"),
-                                team.GetAttributeValue<EntityReference>("regardingobjectid").Id.ToString(),
-                                team.GetAttributeValue<EntityReference>("regardingobjectid").Name
-                                });
-                            });
-                        }
-                    }
-                });
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            var worker = new GetAccessTeamsWorker(this);
+            worker.DoWork();
         }
 
         private void UpdateAccessTeams(object sender, EventArgs e)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(textBox_AccessTeamTemplateId.Text))
-                {
-                    MessageBox.Show("Please select an access team template and load the access teams.", "No access teams loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
-                WorkAsync(new WorkAsyncInfo
-                {
-                    Message = "Updating Access Teams",
-                    Work = (worker, args) =>
-                    {
-                        var result = new List<ModifyAccessResponse>();
-
-                        AcceessTeams.ForEach(team =>
-                        {
-                            // Grant the first user delete access to the lead.
-                            var request = new ModifyAccessRequest
-                            {
-                                PrincipalAccess = new PrincipalAccess
-                                {
-                                    AccessMask = AccessMask.Value,
-                                    Principal = team.ToEntityReference()
-                                },
-                                Target = team.GetAttributeValue<EntityReference>("regardingobjectid")
-                            };
-
-                            var response = (ModifyAccessResponse)Service.Execute(request);
-
-                            result.Add(response);
-                        });
-
-                        args.Result = result;
-                    },
-                    PostWorkCallBack = (args) =>
-                    {
-                        if (args.Error != null)
-                        {
-                            MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-                        var result = args.Result as List<ModifyAccessResponse>;
-
-                        if (result != null)
-                        {
-                            result.ForEach(response =>
-                            {
-                            });
-                        }
-                    }
-                });
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }       
+        { 
+            var worker = new UpdateAccessTeamsWorker(this);
+            worker.DoWork();
+        }
 
         /// <summary>
         /// This event occurs when the connection has been updated in XrmToolBox
@@ -252,6 +83,35 @@ namespace Martype.XrmToolBox.AccessTeamUpdater
         private void UndoSelection(object sender, EventArgs e)
         {
             dataGridView_AccessTeams.ClearSelection();
+        }
+
+        private void AddDivergentOnlyToolTip()
+        {
+            var toolTip = new ToolTip();
+            toolTip.AutoPopDelay = 5000;
+            toolTip.InitialDelay = 500;
+            toolTip.ReshowDelay = 500;
+            toolTip.ShowAlways = true;
+
+            toolTip.SetToolTip(this.checkBox_DivergentOnly, "Select whether to show only Access Teams with AccessRights other than the Access Team Template.");
+        }
+
+        private void dataGridView_AccessTeamTemplates_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridView_AccessTeamTemplates.Columns["Browse"].Index && e.RowIndex != -1)
+            {
+                var url = (string)dataGridView_AccessTeamTemplates.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                Process.Start(url);
+            }
+        }
+
+        private void dataGridView_AccessTeams_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridView_AccessTeams.Columns["BrowseTeam"].Index && e.RowIndex != -1)
+            {
+                var url = (string)dataGridView_AccessTeams.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                Process.Start(url);
+            }
         }
     }
 }

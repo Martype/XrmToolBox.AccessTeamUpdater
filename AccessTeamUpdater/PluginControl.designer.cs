@@ -35,20 +35,23 @@
             this.toolStripButton_UpdateAccessTeams = new System.Windows.Forms.ToolStripButton();
             this.label_AccessTeamTemplates = new System.Windows.Forms.Label();
             this.dataGridView_AccessTeamTemplates = new System.Windows.Forms.DataGridView();
-            this.TeamTemplateId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TeamTemplateName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DefaultAccessRightsMask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AccessRights = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView_AccessTeams = new System.Windows.Forms.DataGridView();
-            this.TeamId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TeamName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegardingObjectId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegardingObjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label_AccessTeams = new System.Windows.Forms.Label();
             this.label_AccessTeamTemplateName = new System.Windows.Forms.Label();
             this.textBox_AccessTeamTemplateId = new System.Windows.Forms.TextBox();
             this.label_AccessRights = new System.Windows.Forms.Label();
             this.textBox_AccessMask = new System.Windows.Forms.TextBox();
+            this.checkBox_DivergentOnly = new System.Windows.Forms.CheckBox();
+            this.BrowseTeam = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.TeamId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TeamName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RegardingObjectId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RegardingObjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TeamTemplateId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Browse = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.TeamTemplateName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DefaultAccessRightsMask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccessRights = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_AccessTeamTemplates)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_AccessTeams)).BeginInit();
@@ -117,6 +120,7 @@
             this.dataGridView_AccessTeamTemplates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_AccessTeamTemplates.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TeamTemplateId,
+            this.Browse,
             this.TeamTemplateName,
             this.DefaultAccessRightsMask,
             this.AccessRights});
@@ -128,36 +132,7 @@
             this.dataGridView_AccessTeamTemplates.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_AccessTeamTemplates.Size = new System.Drawing.Size(300, 402);
             this.dataGridView_AccessTeamTemplates.TabIndex = 8;
-            // 
-            // TeamTemplateId
-            // 
-            this.TeamTemplateId.HeaderText = "Id";
-            this.TeamTemplateId.Name = "TeamTemplateId";
-            this.TeamTemplateId.ReadOnly = true;
-            this.TeamTemplateId.Visible = false;
-            // 
-            // TeamTemplateName
-            // 
-            this.TeamTemplateName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.TeamTemplateName.HeaderText = "Name";
-            this.TeamTemplateName.Name = "TeamTemplateName";
-            this.TeamTemplateName.ReadOnly = true;
-            this.TeamTemplateName.Width = 60;
-            // 
-            // DefaultAccessRightsMask
-            // 
-            this.DefaultAccessRightsMask.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.DefaultAccessRightsMask.HeaderText = "Access Mask";
-            this.DefaultAccessRightsMask.Name = "DefaultAccessRightsMask";
-            this.DefaultAccessRightsMask.ReadOnly = true;
-            this.DefaultAccessRightsMask.Visible = false;
-            // 
-            // AccessRights
-            // 
-            this.AccessRights.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.AccessRights.HeaderText = "Access Rights";
-            this.AccessRights.Name = "AccessRights";
-            this.AccessRights.ReadOnly = true;
+            this.dataGridView_AccessTeamTemplates.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_AccessTeamTemplates_CellContentClick);
             // 
             // dataGridView_AccessTeams
             // 
@@ -169,17 +144,85 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView_AccessTeams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_AccessTeams.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.BrowseTeam,
             this.TeamId,
             this.TeamName,
             this.RegardingObjectId,
             this.RegardingObjectName});
-            this.dataGridView_AccessTeams.Location = new System.Drawing.Point(313, 116);
+            this.dataGridView_AccessTeams.Location = new System.Drawing.Point(313, 161);
             this.dataGridView_AccessTeams.Name = "dataGridView_AccessTeams";
             this.dataGridView_AccessTeams.ReadOnly = true;
             this.dataGridView_AccessTeams.RowHeadersVisible = false;
-            this.dataGridView_AccessTeams.Size = new System.Drawing.Size(523, 331);
+            this.dataGridView_AccessTeams.Size = new System.Drawing.Size(523, 286);
             this.dataGridView_AccessTeams.TabIndex = 9;
+            this.dataGridView_AccessTeams.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_AccessTeams_CellContentClick);
             this.dataGridView_AccessTeams.SelectionChanged += new System.EventHandler(this.UndoSelection);
+            // 
+            // label_AccessTeams
+            // 
+            this.label_AccessTeams.AutoSize = true;
+            this.label_AccessTeams.Location = new System.Drawing.Point(313, 145);
+            this.label_AccessTeams.Name = "label_AccessTeams";
+            this.label_AccessTeams.Size = new System.Drawing.Size(80, 13);
+            this.label_AccessTeams.TabIndex = 10;
+            this.label_AccessTeams.Text = "Access Teams:";
+            // 
+            // label_AccessTeamTemplateName
+            // 
+            this.label_AccessTeamTemplateName.AutoSize = true;
+            this.label_AccessTeamTemplateName.Location = new System.Drawing.Point(313, 93);
+            this.label_AccessTeamTemplateName.Name = "label_AccessTeamTemplateName";
+            this.label_AccessTeamTemplateName.Size = new System.Drawing.Size(122, 13);
+            this.label_AccessTeamTemplateName.TabIndex = 11;
+            this.label_AccessTeamTemplateName.Text = "Access Team Template:";
+            // 
+            // textBox_AccessTeamTemplateId
+            // 
+            this.textBox_AccessTeamTemplateId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_AccessTeamTemplateId.Enabled = false;
+            this.textBox_AccessTeamTemplateId.Location = new System.Drawing.Point(441, 90);
+            this.textBox_AccessTeamTemplateId.Name = "textBox_AccessTeamTemplateId";
+            this.textBox_AccessTeamTemplateId.Size = new System.Drawing.Size(395, 20);
+            this.textBox_AccessTeamTemplateId.TabIndex = 12;
+            // 
+            // label_AccessRights
+            // 
+            this.label_AccessRights.AutoSize = true;
+            this.label_AccessRights.Location = new System.Drawing.Point(313, 119);
+            this.label_AccessRights.Name = "label_AccessRights";
+            this.label_AccessRights.Size = new System.Drawing.Size(78, 13);
+            this.label_AccessRights.TabIndex = 11;
+            this.label_AccessRights.Text = "Access Rights:";
+            // 
+            // textBox_AccessMask
+            // 
+            this.textBox_AccessMask.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_AccessMask.Enabled = false;
+            this.textBox_AccessMask.Location = new System.Drawing.Point(441, 116);
+            this.textBox_AccessMask.Name = "textBox_AccessMask";
+            this.textBox_AccessMask.Size = new System.Drawing.Size(395, 20);
+            this.textBox_AccessMask.TabIndex = 12;
+            // 
+            // checkBox_DivergentOnly
+            // 
+            this.checkBox_DivergentOnly.AutoSize = true;
+            this.checkBox_DivergentOnly.Checked = true;
+            this.checkBox_DivergentOnly.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_DivergentOnly.Location = new System.Drawing.Point(316, 45);
+            this.checkBox_DivergentOnly.Name = "checkBox_DivergentOnly";
+            this.checkBox_DivergentOnly.Size = new System.Drawing.Size(96, 17);
+            this.checkBox_DivergentOnly.TabIndex = 13;
+            this.checkBox_DivergentOnly.Text = "Divergent Only";
+            this.checkBox_DivergentOnly.UseVisualStyleBackColor = true;
+            // 
+            // BrowseTeam
+            // 
+            this.BrowseTeam.HeaderText = "Browse";
+            this.BrowseTeam.Name = "BrowseTeam";
+            this.BrowseTeam.ReadOnly = true;
+            this.BrowseTeam.Width = 50;
             // 
             // TeamId
             // 
@@ -214,58 +257,53 @@
             this.RegardingObjectName.Visible = false;
             this.RegardingObjectName.Width = 200;
             // 
-            // label_AccessTeams
+            // TeamTemplateId
             // 
-            this.label_AccessTeams.AutoSize = true;
-            this.label_AccessTeams.Location = new System.Drawing.Point(313, 100);
-            this.label_AccessTeams.Name = "label_AccessTeams";
-            this.label_AccessTeams.Size = new System.Drawing.Size(80, 13);
-            this.label_AccessTeams.TabIndex = 10;
-            this.label_AccessTeams.Text = "Access Teams:";
+            this.TeamTemplateId.HeaderText = "Id";
+            this.TeamTemplateId.Name = "TeamTemplateId";
+            this.TeamTemplateId.ReadOnly = true;
+            this.TeamTemplateId.Visible = false;
             // 
-            // label_AccessTeamTemplateName
+            // Browse
             // 
-            this.label_AccessTeamTemplateName.AutoSize = true;
-            this.label_AccessTeamTemplateName.Location = new System.Drawing.Point(313, 48);
-            this.label_AccessTeamTemplateName.Name = "label_AccessTeamTemplateName";
-            this.label_AccessTeamTemplateName.Size = new System.Drawing.Size(122, 13);
-            this.label_AccessTeamTemplateName.TabIndex = 11;
-            this.label_AccessTeamTemplateName.Text = "Access Team Template:";
+            this.Browse.HeaderText = "Browse";
+            this.Browse.Name = "Browse";
+            this.Browse.ReadOnly = true;
+            this.Browse.Text = "";
+            this.Browse.ToolTipText = "Open the record in Dataverse";
+            this.Browse.Width = 50;
             // 
-            // textBox_AccessTeamTemplateId
+            // TeamTemplateName
             // 
-            this.textBox_AccessTeamTemplateId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_AccessTeamTemplateId.Enabled = false;
-            this.textBox_AccessTeamTemplateId.Location = new System.Drawing.Point(441, 45);
-            this.textBox_AccessTeamTemplateId.Name = "textBox_AccessTeamTemplateId";
-            this.textBox_AccessTeamTemplateId.Size = new System.Drawing.Size(395, 20);
-            this.textBox_AccessTeamTemplateId.TabIndex = 12;
+            this.TeamTemplateName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.TeamTemplateName.HeaderText = "Name";
+            this.TeamTemplateName.Name = "TeamTemplateName";
+            this.TeamTemplateName.ReadOnly = true;
+            this.TeamTemplateName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TeamTemplateName.Width = 60;
             // 
-            // label_AccessRights
+            // DefaultAccessRightsMask
             // 
-            this.label_AccessRights.AutoSize = true;
-            this.label_AccessRights.Location = new System.Drawing.Point(313, 74);
-            this.label_AccessRights.Name = "label_AccessRights";
-            this.label_AccessRights.Size = new System.Drawing.Size(78, 13);
-            this.label_AccessRights.TabIndex = 11;
-            this.label_AccessRights.Text = "Access Rights:";
+            this.DefaultAccessRightsMask.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.DefaultAccessRightsMask.HeaderText = "Access Mask";
+            this.DefaultAccessRightsMask.Name = "DefaultAccessRightsMask";
+            this.DefaultAccessRightsMask.ReadOnly = true;
+            this.DefaultAccessRightsMask.Visible = false;
+            this.DefaultAccessRightsMask.Width = 96;
             // 
-            // textBox_AccessMask
+            // AccessRights
             // 
-            this.textBox_AccessMask.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_AccessMask.Enabled = false;
-            this.textBox_AccessMask.Location = new System.Drawing.Point(441, 71);
-            this.textBox_AccessMask.Name = "textBox_AccessMask";
-            this.textBox_AccessMask.Size = new System.Drawing.Size(395, 20);
-            this.textBox_AccessMask.TabIndex = 12;
+            this.AccessRights.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.AccessRights.HeaderText = "Access Rights";
+            this.AccessRights.Name = "AccessRights";
+            this.AccessRights.ReadOnly = true;
             // 
             // PluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.checkBox_DivergentOnly);
             this.Controls.Add(this.textBox_AccessMask);
             this.Controls.Add(this.textBox_AccessTeamTemplateId);
             this.Controls.Add(this.label_AccessRights);
@@ -291,23 +329,26 @@
         private System.Windows.Forms.ToolStrip toolStripMenu;
         private System.Windows.Forms.ToolStripButton toolStripButton_LoadAccessTeamTemplates;
         private System.Windows.Forms.Label label_AccessTeamTemplates;
-        private System.Windows.Forms.DataGridView dataGridView_AccessTeamTemplates;
-        private System.Windows.Forms.DataGridView dataGridView_AccessTeams;
         private System.Windows.Forms.Label label_AccessTeams;
         private System.Windows.Forms.ToolStripButton toolStripButton_LoadAccessTeams;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.ToolStripButton toolStripButton_UpdateAccessTeams;
         private System.Windows.Forms.Label label_AccessTeamTemplateName;
-        private System.Windows.Forms.TextBox textBox_AccessTeamTemplateId;
         private System.Windows.Forms.Label label_AccessRights;
-        private System.Windows.Forms.TextBox textBox_AccessMask;
+        private System.Windows.Forms.CheckBox checkBox_DivergentOnly;
+        public System.Windows.Forms.DataGridView dataGridView_AccessTeamTemplates;
+        public System.Windows.Forms.DataGridView dataGridView_AccessTeams;
+        public System.Windows.Forms.TextBox textBox_AccessTeamTemplateId;
+        public System.Windows.Forms.TextBox textBox_AccessMask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TeamTemplateId;
+        private System.Windows.Forms.DataGridViewLinkColumn Browse;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TeamTemplateName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DefaultAccessRightsMask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccessRights;
+        private System.Windows.Forms.DataGridViewLinkColumn BrowseTeam;
         private System.Windows.Forms.DataGridViewTextBoxColumn TeamId;
         private System.Windows.Forms.DataGridViewTextBoxColumn TeamName;
         private System.Windows.Forms.DataGridViewTextBoxColumn RegardingObjectId;
         private System.Windows.Forms.DataGridViewTextBoxColumn RegardingObjectName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TeamTemplateId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TeamTemplateName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DefaultAccessRightsMask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AccessRights;
     }
 }

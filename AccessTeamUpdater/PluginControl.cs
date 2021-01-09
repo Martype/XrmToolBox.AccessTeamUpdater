@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using XrmToolBox.Extensibility;
-using Microsoft.Xrm.Sdk.Query;
-using Microsoft.Xrm.Sdk;
+﻿using Martype.XrmToolBox.AccessTeamUpdater.Model;
+using Martype.XrmToolBox.AccessTeamUpdater.Workers;
 using McTools.Xrm.Connection;
 using Microsoft.Crm.Sdk.Messages;
-using Martype.XrmToolBox.AccessTeamUpdater.Factory;
-using Martype.XrmToolBox.AccessTeamUpdater.Model;
-using Martype.XrmToolBox.AccessTeamUpdater.Query;
-using Martype.XrmToolBox.AccessTeamUpdater.Workers;
+using Microsoft.Xrm.Sdk;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows.Forms;
+using XrmToolBox.Extensibility;
 
 namespace Martype.XrmToolBox.AccessTeamUpdater
 {
@@ -96,22 +87,75 @@ namespace Martype.XrmToolBox.AccessTeamUpdater
             toolTip.SetToolTip(this.checkBox_DivergentOnly, "Select whether to show only Access Teams with AccessRights other than the Access Team Template.");
         }
 
+        private void dataGridView_AccessTeamTemplates_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            if (e.ColumnIndex == dataGridView_AccessTeamTemplates.Columns["TeamTemplateName"].Index)
+            {
+                var hyperLink = (HyperLink)dataGridView_AccessTeamTemplates.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
+                e.Value = hyperLink.Title;
+            }
+            else if (e.ColumnIndex == dataGridView_AccessTeamTemplates.Columns["AccessRights"].Index)
+            {
+                var accessRights = (AccessRights)dataGridView_AccessTeamTemplates.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
+                e.CellStyle.WrapMode = DataGridViewTriState.True;
+                e.Value = FormatAccessRights(accessRights);
+            }
+        }
+
         private void dataGridView_AccessTeamTemplates_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dataGridView_AccessTeamTemplates.Columns["Browse"].Index && e.RowIndex != -1)
+            if (e.RowIndex == -1)
+                return;
+
+            if (e.ColumnIndex == dataGridView_AccessTeamTemplates.Columns["TeamTemplateName"].Index)
             {
-                var url = (string)dataGridView_AccessTeamTemplates.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                Process.Start(url);
+                var hyperLink = (HyperLink)dataGridView_AccessTeamTemplates.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
+                Process.Start(hyperLink.Url);
+            }
+        }     
+
+        private void dataGridView_AccessTeams_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            if (e.ColumnIndex == dataGridView_AccessTeams.Columns["TeamId"].Index
+               || e.ColumnIndex == dataGridView_AccessTeams.Columns["RegardingObject"].Index)
+            {
+                var hyperLink = (HyperLink)dataGridView_AccessTeams.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                e.Value = hyperLink.Title;
+            }
+            else if (e.ColumnIndex == dataGridView_AccessTeams.Columns["TeamAccessRights"].Index)
+            {
+                var accessRights = (AccessRights)dataGridView_AccessTeams.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
+                e.Value = accessRights.ToString();
             }
         }
 
         private void dataGridView_AccessTeams_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dataGridView_AccessTeams.Columns["BrowseTeam"].Index && e.RowIndex != -1)
+            if (e.RowIndex == -1)
+                return;
+
+            if ((e.ColumnIndex == dataGridView_AccessTeams.Columns["TeamId"].Index 
+                || e.ColumnIndex == dataGridView_AccessTeams.Columns["RegardingObject"].Index))
             {
-                var url = (string)dataGridView_AccessTeams.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                Process.Start(url);
+                var hyperLink = (HyperLink)dataGridView_AccessTeams.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
+                Process.Start(hyperLink.Url);
             }
         }
+
+        private string FormatAccessRights(AccessRights accessRights)
+        {
+            return accessRights.ToString().Replace(", ", "\n\r");
+        }      
     }
 }

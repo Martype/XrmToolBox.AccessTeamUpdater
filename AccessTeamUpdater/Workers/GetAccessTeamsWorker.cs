@@ -1,7 +1,7 @@
 ﻿using Martype.XrmToolBox.AccessTeamUpdater.Factory;
 using Martype.XrmToolBox.AccessTeamUpdater.Model;
 using Martype.XrmToolBox.AccessTeamUpdater.Query;
-using Microsoft.Xrm.Sdk;
+using Microsoft.Crm.Sdk.Messages;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -85,7 +85,23 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
         {
             var retriever = new AccessTeamRetriever(Service);
 
-            return retriever.GetListByAccessTeamTemplateId(Control.SelectedTemplate.Id);
+            var accessTeams = retriever.GetListByAccessTeamTemplateId(Control.SelectedTemplate.Id, Control.textBox_FetchXmlFilter.Text);
+
+            accessTeams.ForEach(team =>
+            {
+
+                var principalAccessRequest = new RetrievePrincipalAccessRequest
+                {
+                    Principal = team.ToEntityReference(),
+                    Target = team.RegardingObjectId
+                };
+
+                var principalAccessResponse = (RetrievePrincipalAccessResponse)Service.Execute(principalAccessRequest);
+
+                team.AccessRights = principalAccessResponse.AccessRights;
+            });
+
+            return accessTeams;
         }
 
         private void HandleAccessTeamsCallBack(RunWorkerCompletedEventArgs args)
@@ -96,15 +112,18 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
 
                 Control.AcceessTeams = args.Result as List<AccessTeam>;
 
+                var divergentOnly = Control.checkBox_DivergentOnly.Checked;
+
                 Control.AcceessTeams.ForEach(team =>
                 {
-                    Control.dataGridView_AccessTeams.Rows.Add(new string[] {
-                        team.GetRecordUrl(Control.ConnectionDetail),
-                        team.Id.ToString(),
-                        team.Name,
-                        team.RegardingObjectId.Id.ToString(),
-                        team.RegardingObjectId.Name
-                    });
+                    if (!divergentOnly || (divergentOnly && team.AccessRights != Control.SelectedTemplate.AccessRights))
+                    {
+                        Control.dataGridView_AccessTeams.Rows.Add(new object[] { 
+                            new HyperLink(team.Id.ToString(), team.GetRecordUrl(Control.ConnectionDetail)),
+                            team.AccessRights,
+                            new HyperLink(team.RegardingObjectId.Id.ToString(), team.RegardingObjectId.GetRecordUrl(Control.ConnectionDetail))
+                        });
+                    }
                 });
             }
         }

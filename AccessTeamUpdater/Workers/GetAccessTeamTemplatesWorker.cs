@@ -1,13 +1,8 @@
 ﻿using Martype.XrmToolBox.AccessTeamUpdater.Model;
 using Martype.XrmToolBox.AccessTeamUpdater.Query;
-using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 
 namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
@@ -57,12 +52,11 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
 
                 templates.ForEach(t =>
                 {
-                    Control.dataGridView_AccessTeamTemplates.Rows.Add(new string[] {
-                        t.Id.ToString(),
-                        t.GetRecordUrl(Control.ConnectionDetail),
-                        t.Name,
-                        t.DefaultAccessRightsMask.ToString(),
-                        t.AccessRights.ToString()
+                    Control.dataGridView_AccessTeamTemplates.Rows.Add(new object[] {
+                        t.Id,
+                        new HyperLink(t.Name, t.GetRecordUrl(Control.ConnectionDetail)),
+                        t.DefaultAccessRightsMask,
+                        t.AccessRights
                     });
                 });
             }

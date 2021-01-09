@@ -1,10 +1,7 @@
-﻿using McTools.Xrm.Connection;
+﻿using Martype.XrmToolBox.AccessTeamUpdater.Utitlity;
+using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Martype.XrmToolBox.AccessTeamUpdater.Model
 {
@@ -22,12 +19,7 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Model
 
         public string GetRecordUrl(ConnectionDetail detail)
         {
-            var main = "main.aspx";
-            var pageType = "?pagetype=entityrecord";
-            var etn = "&etn=" + LogicalName;
-            var id = "&id=" + Id;
-
-            return new Uri(new Uri(detail.WebApplicationUrl), main + pageType + etn + id).AbsoluteUri;
+            return UrlUtility.GetRecordUrl(LogicalName, Id, detail);
         }
     }
 }

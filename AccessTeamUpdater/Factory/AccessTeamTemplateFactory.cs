@@ -4,8 +4,6 @@ using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Martype.XrmToolBox.AccessTeamUpdater.Factory
@@ -32,10 +30,10 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Factory
 
         public static AccessTeamTemplate FromDataGridViewRow(DataGridViewRow row)
         {
-            var teamTemplateId = new Guid((string)row.Cells["TeamTemplateId"].Value);
-            var teamTemplateName = (string)row.Cells["TeamTemplateName"].Value;
-            var defaultAccessRightsMask = int.Parse((string)row.Cells["DefaultAccessRightsMask"].Value);
-            var accessRights = (AccessRights)defaultAccessRightsMask;
+            var teamTemplateId = (Guid)row.Cells["TeamTemplateId"].Value;
+            var teamTemplateName = ((HyperLink)row.Cells["TeamTemplateName"].Value).Title;
+            var defaultAccessRightsMask = (int)row.Cells["DefaultAccessRightsMask"].Value;
+            var accessRights = (AccessRights)row.Cells["AccessRights"].Value;
 
             return new AccessTeamTemplate()
             {

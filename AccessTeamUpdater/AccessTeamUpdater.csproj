@@ -140,6 +140,8 @@
     <Compile Include="Model\AccessTeamTemplate.cs" />
     <Compile Include="Factory\AccessTeamTemplateFactory.cs" />
     <Compile Include="Model\EntityBase.cs" />
+    <Compile Include="Model\EntityReferenceExtensions.cs" />
+    <Compile Include="Model\HyperLink.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginControl.cs">
       <SubType>UserControl</SubType>
@@ -152,6 +154,7 @@
     <Compile Include="Query\AccessTeamTemplateRetriever.cs" />
     <Compile Include="Query\RetrieverBase.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Utitlity\UrlUtility.cs" />
     <Compile Include="Workers\GetAccessTeamTemplatesWorker.cs" />
     <Compile Include="Workers\GetAccessTeamsWorker.cs" />
     <Compile Include="Workers\UpdateAccessTeamsWorker.cs" />

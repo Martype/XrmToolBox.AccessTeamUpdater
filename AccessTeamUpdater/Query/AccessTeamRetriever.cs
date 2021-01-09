@@ -4,9 +4,6 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Martype.XrmToolBox.AccessTeamUpdater.Query
 {
@@ -17,22 +14,23 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Query
 
         public List<AccessTeam> GetListByAccessTeamTemplateId(Guid templateId, string fetchXmlFilter = null)
         {
-            var query = new QueryExpression(AccessTeam.EntityLogicalName)
-            {
-                ColumnSet = new ColumnSet(new string[] { 
-                    AccessTeam.Fields.TeamId,
-                    AccessTeam.Fields.Name,
-                    AccessTeam.Fields.RegardingObjectId,
-                    AccessTeam.Fields.TeamTemplateId
-                })
-            };
+            var fetchXml = $@"  
+               <fetch mapping='logical'>  
+                 <entity name='{AccessTeam.EntityLogicalName}'>   
+                    <attribute name='{AccessTeam.Fields.TeamId}'/>   
+                    <attribute name='{AccessTeam.Fields.Name}'/> 
+                    <attribute name='{AccessTeam.Fields.RegardingObjectId}'/> 
+                    <attribute name='{AccessTeam.Fields.TeamTemplateId}'/> 
+                    <filter type='and'>   
+                        <condition attribute='{AccessTeam.Fields.TeamTemplateId}' operator='eq' value='{templateId}' />   
+                    </filter>
+                    {fetchXmlFilter}
+                 </entity>   
+               </fetch> ";
 
-            var filter = new FilterExpression();
-            filter.AddCondition(AccessTeam.Fields.TeamTemplateId, ConditionOperator.Equal, templateId);
+            var fetchExpression = new FetchExpression(fetchXml);
 
-            query.Criteria.AddFilter(filter);
-
-            var result = Service.RetrieveMultiple(query);
+            var result = Service.RetrieveMultiple(fetchExpression);
 
             return AccessTeamFactory.FromEntityCollection(result);
         }

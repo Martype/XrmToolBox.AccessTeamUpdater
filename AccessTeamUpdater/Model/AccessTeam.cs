@@ -1,9 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk;
 
 namespace Martype.XrmToolBox.AccessTeamUpdater.Model
 {
@@ -23,6 +19,8 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Model
 
         public EntityReference RegardingObjectId { get; set; }
 
-        public EntityReference TeamTemplateId { get; set; }      
+        public EntityReference TeamTemplateId { get; set; }
+
+        public AccessRights AccessRights { get; set; }
     }
 }

@@ -34,7 +34,7 @@ Optional: When it's done you can hit "Load Access Teams" again. This should resu
 
 * You can click the values of the link columns (Name, Id, Regarding Object) to open the records in your default browser.
 
-* Deselect "Divergent Only" to get a list of teams regardless of whether their "AccessRights" match those of the selected Access Team Template.
+* Deselect "Divergent Only" to get a list of teams regardless of whether their "AccessRights" mismatch those of the selected Access Team Template.
 
 * You can use the field "FetchXml Filter" to limit the list of teams to be changed.
 \

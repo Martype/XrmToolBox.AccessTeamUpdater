@@ -1,2 +1,2 @@
-# XrmToolBox.AccessTeamUpdater
-XrmToolBox plugin for updating the access rights of POE table records.
+# XrmToolBox Access Team Updater
+XrmToolBox plugin for updating the access rights of access teams.

@@ -84,7 +84,7 @@ namespace Martype.XrmToolBox.AccessTeamUpdater
             toolTip.ReshowDelay = 500;
             toolTip.ShowAlways = true;
 
-            toolTip.SetToolTip(this.checkBox_DivergentOnly, "Select whether to show only Access Teams with AccessRights other than the Access Team Template.");
+            toolTip.SetToolTip(this.checkBox_DivergentOnly, "Select whether to only show access teams with access rights other than the access team template");
         }
 
         private void dataGridView_AccessTeamTemplates_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

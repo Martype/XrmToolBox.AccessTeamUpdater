@@ -117,42 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolStripMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="toolStripButton_Help.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAW
-        JQAAFiUBSVIk8AAAAbVJREFUOE+1Ut8rg2EU3t+w4sYNiRv3cu9SlgvTlNYuELsQ40r50WZ+RGSSjSyh
-        NruTEFbLwnDDajMtcoXRwhhrs29Hz7HP19qaG06dvtN5z/O8z3neT/YvseQM0MjaFfVYL6nd7KdBe5DQ
-        Sx/nDwwfBl8p8iFQKkWcT+9J2r94Ie38UX6Sxb1bHnadx8lo/yTlcJwTNXp3zwlWkx7PDBwAbHO9U3Wv
-        QIs78R8VAHZaEtxDnaXE5rxh2bgF4A7zt/T1Y4GapwX+gqyqO0kbnkfaPr2mSYdbIoFZGIBUDNUaUlxX
-        aAUqa41RmynChPWGB9IYAxSOxEg9tCwRNIyd8QCAIABQBLeYokx+6ItSYZ2HylU7PFupnpIIFHofNyFf
-        BBZrImwg+vClVOUmec1WboKmSS8bqJsLU4kmREWN15yj9hAPyxUHDEYq+054BYVuQSKY2fDyO8MgAAuU
-        Pk4oA4kIRsJwmNg/uyIRIGAkngh/IHbFrahZQRqst/rpPvxGXeOOTLAY+BdAglsgFXsjUaMH8IBlMzdY
-        DPWEmyViT9yORI3er2AxxlZ32SQ4jS8ya+e/CZnsCwwl2L2cxXJmAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <metadata name="TeamTemplateId.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="TeamTemplateName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="DefaultAccessRightsMask.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="AccessRights.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="TeamId.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="TeamAccessRights.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="RegardingObject.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>

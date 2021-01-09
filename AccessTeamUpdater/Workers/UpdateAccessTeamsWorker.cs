@@ -71,7 +71,7 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
         {
             var loaded = true;
 
-            if (string.IsNullOrEmpty(Control.textBox_AccessTeamTemplateId.Text))
+            if (string.IsNullOrEmpty(Control.textBox_AccessTeamTemplate.Text))
             {
                 loaded = false;
                 MessageBox.Show("Please select an access team template and load the access teams.", "No access teams loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);

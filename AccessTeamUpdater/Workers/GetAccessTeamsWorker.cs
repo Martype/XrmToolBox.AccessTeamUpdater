@@ -52,8 +52,8 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
             Control.AcceessTeams = null;
             Control.dataGridView_AccessTeams.Rows.Clear();
 
-            Control.textBox_AccessTeamTemplateId.Text = null;
-            Control.textBox_AccessMask.Text = null;
+            Control.textBox_AccessTeamTemplate.Text = null;
+            Control.textBox_AccessRights.Text = null;
         }
 
         private bool TemplateSelected()
@@ -77,8 +77,8 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
 
         private void SetPreviewControls()
         {
-            Control.textBox_AccessTeamTemplateId.Text = Control.SelectedTemplate.Name;
-            Control.textBox_AccessMask.Text = Control.SelectedTemplate.AccessRights.ToString();
+            Control.textBox_AccessTeamTemplate.Text = Control.SelectedTemplate.Name;
+            Control.textBox_AccessRights.Text = Control.SelectedTemplate.AccessRights.ToString();
         }
 
         private List<AccessTeam> RetrieveAccessTeams()

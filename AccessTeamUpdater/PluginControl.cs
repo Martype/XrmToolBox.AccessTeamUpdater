@@ -69,6 +69,8 @@ namespace Martype.XrmToolBox.AccessTeamUpdater
                 mySettings.LastUsedOrganizationWebappUrl = detail.WebApplicationUrl;
                 LogInfo("Connection has changed to: {0}", detail.WebApplicationUrl);
             }
+
+            Reset();
         }
 
         private void UndoSelection(object sender, EventArgs e)
@@ -156,6 +158,23 @@ namespace Martype.XrmToolBox.AccessTeamUpdater
         private string FormatAccessRights(AccessRights accessRights)
         {
             return accessRights.ToString().Replace(", ", "\n\r");
-        }      
+        }
+
+        private void toolStripButton_Help_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/Martype/XrmToolBox.AccessTeamUpdater#how-to-use-this-plugin");
+        }
+
+        private void Reset()
+        {
+            AcceessTeams = null;
+            SelectedTemplate = null;
+
+            dataGridView_AccessTeams.Rows.Clear();
+            dataGridView_AccessTeamTemplates.Rows.Clear();
+
+            textBox_AccessTeamTemplate.Text = null;
+            textBox_AccessRights.Text = null;
+        }
     }
 }

@@ -38,7 +38,7 @@ Optional: When it's done you can hit "Load Access Teams" again. This should resu
 
 * You can use the field "FetchXml Filter" to limit the list of teams to be changed.
 \
-Example: Retrieve/Update only those teams, where the regarding object is active
+In the following example only those teams are retrieved/updated, where the regarding object is active:
 
 ```
 <link-entity name="new_samplerecord" from="new_samplerecordid" to="regardingobjectid">

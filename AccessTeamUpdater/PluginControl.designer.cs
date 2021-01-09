@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PluginControl));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStripMenu = new System.Windows.Forms.ToolStrip();
@@ -35,6 +36,7 @@
             this.toolStripButton_LoadAccessTeams = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton_UpdateAccessTeams = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_Help = new System.Windows.Forms.ToolStripButton();
             this.label_AccessTeamTemplates = new System.Windows.Forms.Label();
             this.dataGridView_AccessTeamTemplates = new System.Windows.Forms.DataGridView();
             this.TeamTemplateId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,9 +46,9 @@
             this.dataGridView_AccessTeams = new System.Windows.Forms.DataGridView();
             this.label_AccessTeams = new System.Windows.Forms.Label();
             this.label_AccessTeamTemplateName = new System.Windows.Forms.Label();
-            this.textBox_AccessTeamTemplateId = new System.Windows.Forms.TextBox();
+            this.textBox_AccessTeamTemplate = new System.Windows.Forms.TextBox();
             this.label_AccessRights = new System.Windows.Forms.Label();
-            this.textBox_AccessMask = new System.Windows.Forms.TextBox();
+            this.textBox_AccessRights = new System.Windows.Forms.TextBox();
             this.checkBox_DivergentOnly = new System.Windows.Forms.CheckBox();
             this.label_DivergentOnly = new System.Windows.Forms.Label();
             this.textBox_FetchXmlFilter = new System.Windows.Forms.TextBox();
@@ -66,7 +68,8 @@
             this.toolStripButton_LoadAccessTeamTemplates,
             this.toolStripButton_LoadAccessTeams,
             this.toolStripSeparator,
-            this.toolStripButton_UpdateAccessTeams});
+            this.toolStripButton_UpdateAccessTeams,
+            this.toolStripButton_Help});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
             this.toolStripMenu.Size = new System.Drawing.Size(839, 25);
@@ -102,6 +105,16 @@
             this.toolStripButton_UpdateAccessTeams.Size = new System.Drawing.Size(124, 22);
             this.toolStripButton_UpdateAccessTeams.Text = "Update Access Teams";
             this.toolStripButton_UpdateAccessTeams.Click += new System.EventHandler(this.UpdateAccessTeams);
+            // 
+            // toolStripButton_Help
+            // 
+            this.toolStripButton_Help.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_Help.Image")));
+            this.toolStripButton_Help.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton_Help.Name = "toolStripButton_Help";
+            this.toolStripButton_Help.Size = new System.Drawing.Size(52, 22);
+            this.toolStripButton_Help.Text = "Help";
+            this.toolStripButton_Help.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.toolStripButton_Help.Click += new System.EventHandler(this.toolStripButton_Help_Click);
             // 
             // label_AccessTeamTemplates
             // 
@@ -226,15 +239,15 @@
             this.label_AccessTeamTemplateName.TabIndex = 11;
             this.label_AccessTeamTemplateName.Text = "Access Team Template:";
             // 
-            // textBox_AccessTeamTemplateId
+            // textBox_AccessTeamTemplate
             // 
-            this.textBox_AccessTeamTemplateId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBox_AccessTeamTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_AccessTeamTemplateId.Enabled = false;
-            this.textBox_AccessTeamTemplateId.Location = new System.Drawing.Point(481, 131);
-            this.textBox_AccessTeamTemplateId.Name = "textBox_AccessTeamTemplateId";
-            this.textBox_AccessTeamTemplateId.Size = new System.Drawing.Size(355, 20);
-            this.textBox_AccessTeamTemplateId.TabIndex = 12;
+            this.textBox_AccessTeamTemplate.Enabled = false;
+            this.textBox_AccessTeamTemplate.Location = new System.Drawing.Point(481, 131);
+            this.textBox_AccessTeamTemplate.Name = "textBox_AccessTeamTemplate";
+            this.textBox_AccessTeamTemplate.Size = new System.Drawing.Size(355, 20);
+            this.textBox_AccessTeamTemplate.TabIndex = 12;
             // 
             // label_AccessRights
             // 
@@ -245,15 +258,15 @@
             this.label_AccessRights.TabIndex = 11;
             this.label_AccessRights.Text = "Access Rights:";
             // 
-            // textBox_AccessMask
+            // textBox_AccessRights
             // 
-            this.textBox_AccessMask.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBox_AccessRights.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_AccessMask.Enabled = false;
-            this.textBox_AccessMask.Location = new System.Drawing.Point(481, 157);
-            this.textBox_AccessMask.Name = "textBox_AccessMask";
-            this.textBox_AccessMask.Size = new System.Drawing.Size(355, 20);
-            this.textBox_AccessMask.TabIndex = 12;
+            this.textBox_AccessRights.Enabled = false;
+            this.textBox_AccessRights.Location = new System.Drawing.Point(481, 157);
+            this.textBox_AccessRights.Name = "textBox_AccessRights";
+            this.textBox_AccessRights.Size = new System.Drawing.Size(355, 20);
+            this.textBox_AccessRights.TabIndex = 12;
             // 
             // checkBox_DivergentOnly
             // 
@@ -306,7 +319,9 @@
             // 
             // TeamAccessRights
             // 
+            this.TeamAccessRights.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
             this.TeamAccessRights.HeaderText = "Access Rights";
+            this.TeamAccessRights.MinimumWidth = 100;
             this.TeamAccessRights.Name = "TeamAccessRights";
             this.TeamAccessRights.ReadOnly = true;
             // 
@@ -329,8 +344,8 @@
             this.Controls.Add(this.label_FetchXmlFilter);
             this.Controls.Add(this.textBox_FetchXmlFilter);
             this.Controls.Add(this.checkBox_DivergentOnly);
-            this.Controls.Add(this.textBox_AccessMask);
-            this.Controls.Add(this.textBox_AccessTeamTemplateId);
+            this.Controls.Add(this.textBox_AccessRights);
+            this.Controls.Add(this.textBox_AccessTeamTemplate);
             this.Controls.Add(this.label_AccessRights);
             this.Controls.Add(this.label_DivergentOnly);
             this.Controls.Add(this.label_AccessTeamTemplateName);
@@ -363,8 +378,8 @@
         private System.Windows.Forms.Label label_AccessRights;
         public System.Windows.Forms.DataGridView dataGridView_AccessTeamTemplates;
         public System.Windows.Forms.DataGridView dataGridView_AccessTeams;
-        public System.Windows.Forms.TextBox textBox_AccessTeamTemplateId;
-        public System.Windows.Forms.TextBox textBox_AccessMask;
+        public System.Windows.Forms.TextBox textBox_AccessTeamTemplate;
+        public System.Windows.Forms.TextBox textBox_AccessRights;
         private System.Windows.Forms.DataGridViewTextBoxColumn TeamTemplateId;
         private System.Windows.Forms.DataGridViewLinkColumn TeamTemplateName;
         private System.Windows.Forms.DataGridViewTextBoxColumn DefaultAccessRightsMask;
@@ -373,6 +388,7 @@
         public System.Windows.Forms.TextBox textBox_FetchXmlFilter;
         private System.Windows.Forms.Label label_FetchXmlFilter;
         public System.Windows.Forms.CheckBox checkBox_DivergentOnly;
+        private System.Windows.Forms.ToolStripButton toolStripButton_Help;
         private System.Windows.Forms.DataGridViewLinkColumn TeamId;
         private System.Windows.Forms.DataGridViewTextBoxColumn TeamAccessRights;
         private System.Windows.Forms.DataGridViewLinkColumn RegardingObject;

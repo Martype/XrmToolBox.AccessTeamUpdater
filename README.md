@@ -3,6 +3,10 @@ XrmToolBox plugin for updating the access rights of access teams.
 
 ![Load Access Team Updater](Documentation/AccessTeamUpdater.png)
 
+## Before you start
+
+Be sure to create a backup for your organization. Just in case...
+
 ## How to use this plugin
 
 1. Connect to the desired organization and hit the button "Load Access Team Templates" to retrieve all Access Team Templates of your organization.

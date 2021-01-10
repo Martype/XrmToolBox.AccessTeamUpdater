@@ -18,6 +18,11 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
                 if (!AccessTeamLoaded())
                     return;
 
+                var dialogResult = MessageBox.Show("Are you sure you want to update all listed teams?\n\r\n\rBe sure you created a backup for your organization.", "Update Access Teams", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (dialogResult == DialogResult.No)
+                    return;
+
                 Control.WorkAsync(new WorkAsyncInfo
                 {
                     Message = "Updating Access Teams",
@@ -71,7 +76,7 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
         {
             var loaded = true;
 
-            if (string.IsNullOrEmpty(Control.textBox_AccessTeamTemplate.Text))
+            if (Control.AcceessTeams == null || Control.AcceessTeams.Count == 0)
             {
                 loaded = false;
                 MessageBox.Show("Please select an access team template and load the access teams.", "No access teams loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);

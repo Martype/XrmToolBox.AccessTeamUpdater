@@ -110,20 +110,29 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
             {
                 SetPreviewControls();
 
-                Control.AcceessTeams = args.Result as List<AccessTeam>;
+                var accessTeams = args.Result as List<AccessTeam>;
+
+                var accessTeamsForUpdate = new List<AccessTeam>();
 
                 var divergentOnly = Control.checkBox_DivergentOnly.Checked;
 
-                Control.AcceessTeams.ForEach(team =>
+                accessTeams.ForEach(team =>
                 {
                     if (!divergentOnly || (divergentOnly && team.AccessRights != Control.SelectedTemplate.AccessRights))
                     {
-                        Control.dataGridView_AccessTeams.Rows.Add(new object[] { 
-                            new HyperLink(team.Id.ToString(), team.GetRecordUrl(Control.ConnectionDetail)),
-                            team.AccessRights,
-                            new HyperLink(team.RegardingObjectId.Id.ToString(), team.RegardingObjectId.GetRecordUrl(Control.ConnectionDetail))
-                        });
+                        accessTeamsForUpdate.Add(team);
                     }
+                });
+
+                Control.AcceessTeams = accessTeamsForUpdate;
+
+                Control.AcceessTeams.ForEach(team =>
+                {
+                    Control.dataGridView_AccessTeams.Rows.Add(new object[] {
+                        new HyperLink(team.Id.ToString(), team.GetRecordUrl(Control.ConnectionDetail)),
+                        team.AccessRights,
+                        new HyperLink(team.RegardingObjectId.Id.ToString(), team.RegardingObjectId.GetRecordUrl(Control.ConnectionDetail))
+                    });
                 });
             }
         }

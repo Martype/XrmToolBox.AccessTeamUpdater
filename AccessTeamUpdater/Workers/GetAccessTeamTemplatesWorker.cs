@@ -3,6 +3,7 @@ using Martype.XrmToolBox.AccessTeamUpdater.Query;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 using XrmToolBox.Extensibility;
 
 namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
@@ -50,16 +51,19 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
             {
                 var templates = args.Result as List<AccessTeamTemplate>;
 
-                templates.ForEach(t =>
-                {
-                    Control.dataGridView_AccessTeamTemplates.Rows.Add(new object[] {
+                if (templates.Count == 0)
+                    ShowInfo("Couldn't find any Access Team Templates.");
+                else
+                    templates.ForEach(t =>
+                    {
+                        Control.dataGridView_AccessTeamTemplates.Rows.Add(new object[] {
                         t.Id,
                         new HyperLink(t.Name, t.GetRecordUrl(Control.ConnectionDetail)),
                         t.DefaultAccessRightsMask,
                         t.AccessRights
+                        });
                     });
-                });
             }
-        }      
+        }
     }
 }

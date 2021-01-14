@@ -49,6 +49,7 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
 
         private void Reset()
         {
+            Control.SelectedTemplate = null;
             Control.AcceessTeams = null;
             Control.dataGridView_AccessTeams.Rows.Clear();
 
@@ -108,32 +109,42 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
         {
             if (WorkSucceeded(args))
             {
-                SetPreviewControls();
-
                 var accessTeams = args.Result as List<AccessTeam>;
 
-                var accessTeamsForUpdate = new List<AccessTeam>();
-
-                var divergentOnly = Control.checkBox_DivergentOnly.Checked;
-
-                accessTeams.ForEach(team =>
+                if (accessTeams.Count == 0)
+                    ShowInfo("Couldn't find any teams for the selected Acces Team Template.");
+                else
                 {
-                    if (!divergentOnly || (divergentOnly && team.AccessRights != Control.SelectedTemplate.AccessRights))
+                    var accessTeamsForUpdate = new List<AccessTeam>();
+
+                    var divergentOnly = Control.checkBox_DivergentOnly.Checked;
+
+                    accessTeams.ForEach(team =>
                     {
-                        accessTeamsForUpdate.Add(team);
-                    }
-                });
+                        if (!divergentOnly || (divergentOnly && team.AccessRights != Control.SelectedTemplate.AccessRights))
+                        {
+                            accessTeamsForUpdate.Add(team);
+                        }
+                    });
 
-                Control.AcceessTeams = accessTeamsForUpdate;
+                    if (accessTeamsForUpdate.Count == 0)
+                        ShowInfo("All teams of the selected Access Team Template are up to date.");
+                    else
+                    {
+                        SetPreviewControls();
 
-                Control.AcceessTeams.ForEach(team =>
-                {
-                    Control.dataGridView_AccessTeams.Rows.Add(new object[] {
+                        Control.AcceessTeams = accessTeamsForUpdate;
+
+                        Control.AcceessTeams.ForEach(team =>
+                        {
+                            Control.dataGridView_AccessTeams.Rows.Add(new object[] {
                         new HyperLink(team.Id.ToString(), team.GetRecordUrl(Control.ConnectionDetail)),
                         team.AccessRights,
                         new HyperLink(team.RegardingObjectId.Id.ToString(), team.RegardingObjectId.GetRecordUrl(Control.ConnectionDetail))
-                    });
-                });
+                            });
+                        });
+                    }
+                }
             }
         }
     }

@@ -35,5 +35,10 @@ namespace Martype.XrmToolBox.AccessTeamUpdater.Workers
         {
             MessageBox.Show(exception.Message + exception.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        protected void ShowInfo(string text)
+        {
+            MessageBox.Show(text, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

@@ -1,3 +1,5 @@
+❌Unfortunately this tool is no longer supported. Microsoft changed something for the SDK Message [ModifyAccessRequest](https://docs.microsoft.com/en-us/dotnet/api/microsoft.crm.sdk.messages.modifyaccessrequest) and currently there is no alternative. 'You can't share or unshare a record with a system-generated access team.' 🤷‍♂️
+
 # Access Team Updater
 XrmToolBox plugin for updating the access rights of access teams.
 
